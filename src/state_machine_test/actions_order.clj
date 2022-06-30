@@ -2,25 +2,20 @@
   (:require [tilakone.core :as tk :refer [_]]))
 
 (def signals
-  [:S0 :S1 :S2 :S3])
+  [:S0 :a1 :S1 :S2 :S3])
 
 (def estados
   [{::tk/name :start
     ::tk/desc "Estado inicial."
     ::tk/transitions [{::tk/on :S0
-                       ::tk/to :validate-credit-card}
-
-                      {::tk/on _
-                       ::tk/to :error}]}
+                       ::tk/to :validate-credit-card}]}
 
    {::tk/name :validate-credit-card
     ::tk/desc "Verifica se o limite está disponível."
     ::tk/transitions [{::tk/on :S1
                        ::tk/to :check-limit
                        ::tk/guards [:t1]
-                       ::tk/actions [:t1]}
-                      {::tk/on _
-                       ::tk/to :error}]
+                       ::tk/actions [:t1]}]
     ::tk/enter {::tk/guards [:enter1]
                 ::tk/actions [:enter1]}
     ::tk/leave {::tk/guards [:leave1]
@@ -31,9 +26,7 @@
     ::tk/transitions [{::tk/on :S2
                        ::tk/to :final-report
                        ::tk/guards [:t2]
-                       ::tk/actions [:t2]}
-                      {::tk/on _
-                       ::tk/to :error}]
+                       ::tk/actions [:t2]}]
     ::tk/enter {::tk/guards [:enter2]
                 ::tk/actions [:enter2]}
     ::tk/leave {::tk/guards [:leave2]
